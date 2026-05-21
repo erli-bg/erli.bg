@@ -1,14 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "erli-bg",
+  "main": "worker/src/index.ts",
   "compatibility_date": "2026-05-21",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  "observability": { "enabled": true },
+  "vars": {
+    "GITHUB_REPO": "erli-bg/erli.bg",
+    "GITHUB_BRANCH": "main",
+    "SITE_BASE_URL": "https://erli.bg"
+  }
 }

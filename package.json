@@ -1,0 +1,21 @@
+{
+  "name": "erli-bg-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker for erli.bg auto-publish from Postmark inbound email.",
+  "type": "module",
+  "main": "worker/src/index.ts",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit -p worker"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250515.0",
+    "typescript": "^5.4.0",
+    "wrangler": "^3.114.0"
+  },
+  "dependencies": {
+    "fflate": "^0.8.2",
+    "sql.js": "^1.10.3"
+  }
+}
