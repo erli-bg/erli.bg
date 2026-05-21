@@ -5,6 +5,12 @@ build.py - generate static HTML for erli.bg from Markdown sources.
 Reads content/lesson-*.md, writes lessons/lesson-NN.html, and rewrites
 index.html so new lessons appear in the list automatically. No external
 dependencies. Run with: python3 build.py
+
+Lesson publication is tied to the presence of the .apkg file. While no
+.apkg files exist in apkg/, the index shows all ten lessons from
+content/ as a curriculum preview. As soon as the first .apkg arrives,
+only published lessons (those with their .apkg in apkg/) appear, and
+HTML files for unpublished lessons are removed from lessons/.
 """
 
 import re
@@ -13,6 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 CONTENT = ROOT / "content"
 LESSONS = ROOT / "lessons"
+APKG = ROOT / "apkg"
 
 PLACEHOLDER_COMMENT = (
     "<!-- PLACEHOLDER vocabulary, replace with verified Sofia-Erli "
@@ -30,7 +37,9 @@ LESSON_STYLE = (
 )
 
 INDEX_STYLE = (
-    "<style>body{max-width:40em;margin:1em}"
+    "<style>"
+    "body{font-family:Times,\"Times New Roman\",serif;"
+    "max-width:40em;margin:1em;line-height:1.45}"
     "ul.lessons{list-style:none;padding-left:0}"
     "ul.lessons li{display:flex;gap:1em;align-items:baseline}"
     ".lesson-date{font-variant-numeric:tabular-nums;color:#777;"
@@ -167,13 +176,23 @@ def render_index(metas):
         INDEX_STYLE,
         "</head>",
         "<body>",
-        "<h1>erli.bg</h1>",
+        "<h1>Erli</h1>",
         (
-            "<p>A learning resource for Sofia-Erli, the Romani dialect "
-            "spoken in the Erli community of Sofia, Bulgaria. The site "
-            "is non-commercial, open access, and deliberately low-tech "
-            "so it loads on any device including basic phones.</p>"
+            "<p>In Fakulteta people speak Erli, a dialect of Romi. "
+            "There are very few resources on it. Here you find videos "
+            "with vocabulary to learn this language. The site is "
+            "non-commercial, open access, and very simple. It can "
+            "load easily on most devices.</p>"
         ),
+        "<h2>Pronunciation</h2>",
+        "<ul>",
+        '<li><a href="pronunciation.html#vowels">Vowels</a></li>',
+        '<li><a href="pronunciation.html#consonants">Consonants</a></li>',
+        '<li><a href="pronunciation.html#aspirated">Aspirated consonants</a></li>',
+        '<li><a href="pronunciation.html#word-final">A note on word-final sounds</a></li>',
+        '<li><a href="pronunciation.html#archaic">The archaic ř</a></li>',
+        '<li><a href="pronunciation.html#stress">Stress</a></li>',
+        "</ul>",
         "<h2>Lessons</h2>",
         '<ul class="lessons">',
     ]
@@ -190,8 +209,8 @@ def render_index(metas):
         "</ul>",
         "<h2>About</h2>",
         "<ul>",
-        '<li><a href="about.html">About the project</a></li>',
-        '<li><a href="sources.html">Sources and references</a></li>',
+        '<li><a href="about.html#who">Who?</a></li>',
+        '<li><a href="about.html#why">Why?</a></li>',
         "</ul>",
         "</body>",
         "</html>",
@@ -199,20 +218,49 @@ def render_index(metas):
     return "\n".join(parts) + "\n"
 
 
+def is_lesson_published(meta):
+    """A lesson is published when its .apkg file exists in apkg/."""
+    nn = f"{int(meta['number']):02d}"
+    anki = meta.get("anki_file") or f"lesson-{nn}.apkg"
+    return (APKG / anki).exists()
+
+
 def main():
     LESSONS.mkdir(exist_ok=True)
-    metas = []
+
+    all_metas = []
+    sources = {}
     for md in sorted(CONTENT.glob("lesson-*.md")):
         meta, body = parse_frontmatter(md.read_text(encoding="utf-8"))
+        all_metas.append(meta)
+        sources[int(meta["number"])] = body
+
+    published = [m for m in all_metas if is_lesson_published(m)]
+
+    # Variante A: while no .apkg has landed yet, the index shows all
+    # ten lessons from content/ as a curriculum preview. As soon as
+    # the first .apkg arrives in apkg/, only published lessons appear
+    # and HTML for unpublished lessons is removed.
+    active = published if published else all_metas
+    active.sort(key=lambda m: int(m["number"]))
+
+    rendered_names = set()
+    for meta in active:
+        body = sources[int(meta["number"])]
         sections = parse_body(body)
         html = render_lesson(meta, sections)
         n = int(meta["number"])
         out = LESSONS / f"lesson-{n:02d}.html"
         out.write_text(html, encoding="utf-8")
-        metas.append(meta)
+        rendered_names.add(out.name)
         print(f"wrote {out.relative_to(ROOT)} ({len(html)} bytes)")
-    metas.sort(key=lambda m: int(m["number"]))
-    index_html = render_index(metas)
+
+    for existing in LESSONS.glob("lesson-*.html"):
+        if existing.name not in rendered_names:
+            existing.unlink()
+            print(f"removed {existing.relative_to(ROOT)}")
+
+    index_html = render_index(active)
     (ROOT / "index.html").write_text(index_html, encoding="utf-8")
     print(f"wrote index.html ({len(index_html)} bytes)")
 
