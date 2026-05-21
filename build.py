@@ -94,7 +94,7 @@ def render_lesson(meta, sections):
         '<meta charset="utf-8">',
         f"<title>{full} - erli.bg</title>",
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
-        "<style>body{max-width:40em;margin:1em;}</style>",
+        "<style>body{max-width:40em;margin:1em}.video-wrapper{position:relative;width:100%;max-width:800px;margin:1.5em auto;aspect-ratio:16/9}.video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0}@media (max-width:480px){.video-wrapper{margin:1em 0}}</style>",
         "</head>",
         "<body>",
         '<p><a href="../index.html">back to index</a></p>',
@@ -114,8 +114,8 @@ def render_lesson(meta, sections):
 
     parts.append("<h2>Video</h2>")
     parts.append(
-        f'<p><iframe src="https://player.vimeo.com/video/{vimeo}" '
-        f'width="640" height="360" allowfullscreen></iframe></p>'
+        f'<div class="video-wrapper"><iframe src="https://player.vimeo.com/video/{vimeo}" '
+        f'allowfullscreen></iframe></div>'
     )
 
     if "Vocabulary" in sections:
@@ -145,7 +145,7 @@ def render_index(metas):
         '<meta charset="utf-8">',
         "<title>erli.bg</title>",
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
-        "<style>body{max-width:40em;margin:1em;}</style>",
+        "<style>body{max-width:40em;margin:1em}.video-wrapper{position:relative;width:100%;max-width:800px;margin:1.5em auto;aspect-ratio:16/9}.video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0}@media (max-width:480px){.video-wrapper{margin:1em 0}}</style>",
         "</head>",
         "<body>",
         "<h1>erli.bg</h1>",
