@@ -27,7 +27,13 @@ PLACEHOLDER_COMMENT = (
 )
 
 LESSON_STYLE = (
-    "<style>body{max-width:40em;margin:1em}"
+    "<style>"
+    "body{font-family:Times,\"Times New Roman\",serif;"
+    "max-width:40em;margin:1em;line-height:1.45}"
+    "table{border-collapse:collapse;margin:0.7em 0}"
+    "th,td{border:1px solid #ccc;padding:0.3em 0.6em;"
+    "text-align:left;vertical-align:top}"
+    "th{background:#f4f4f4;font-weight:normal}"
     ".video-wrapper{position:relative;width:100%;max-width:800px;"
     "margin:1.5em auto;aspect-ratio:16/9}"
     ".video-wrapper iframe{position:absolute;inset:0;width:100%;"
@@ -42,7 +48,7 @@ INDEX_STYLE = (
     "max-width:40em;margin:1em;line-height:1.45}"
     "ul.lessons{list-style:none;padding-left:0}"
     "ul.lessons li{display:flex;gap:1em;align-items:baseline}"
-    ".lesson-date{font-variant-numeric:tabular-nums;color:#777;"
+    ".lesson-date{font-variant-numeric:tabular-nums;"
     "min-width:4.5em}"
     "</style>"
 )
@@ -185,13 +191,13 @@ def render_index(metas):
             "load easily on most devices.</p>"
         ),
         "<h2>Pronunciation</h2>",
-        "<ul>",
-        '<li><a href="pronunciation.html#vowels">Vowels</a></li>',
-        '<li><a href="pronunciation.html#consonants">Consonants</a></li>',
-        '<li><a href="pronunciation.html#aspirated">Aspirated consonants</a></li>',
-        '<li><a href="pronunciation.html#word-final">A note on word-final sounds</a></li>',
-        '<li><a href="pronunciation.html#archaic">The archaic ř</a></li>',
-        '<li><a href="pronunciation.html#stress">Stress</a></li>',
+        '<ul class="lessons">',
+        '<li><span class="lesson-date">-&gt;</span><a href="pronunciation/vowels.html">Vowels</a></li>',
+        '<li><span class="lesson-date">-&gt;</span><a href="pronunciation/consonants.html">Consonants</a></li>',
+        '<li><span class="lesson-date">-&gt;</span><a href="pronunciation/aspirated.html">Aspirated consonants</a></li>',
+        '<li><span class="lesson-date">-&gt;</span><a href="pronunciation/word-final.html">A note on word-final sounds</a></li>',
+        '<li><span class="lesson-date">-&gt;</span><a href="pronunciation/archaic.html">The archaic ř</a></li>',
+        '<li><span class="lesson-date">-&gt;</span><a href="pronunciation/stress.html">Stress</a></li>',
         "</ul>",
         "<h2>Lessons</h2>",
         '<ul class="lessons">',
@@ -208,9 +214,9 @@ def render_index(metas):
     parts += [
         "</ul>",
         "<h2>About</h2>",
-        "<ul>",
-        '<li><a href="about.html#who">Who?</a></li>',
-        '<li><a href="about.html#why">Why?</a></li>',
+        '<ul class="lessons">',
+        '<li><span class="lesson-date">-&gt;</span><a href="about/who.html">Who?</a></li>',
+        '<li><span class="lesson-date">-&gt;</span><a href="about/why.html">Why?</a></li>',
         "</ul>",
         "</body>",
         "</html>",
