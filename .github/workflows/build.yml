@@ -1,0 +1,52 @@
+# GitHub Actions workflow — auto-rebuild the static site whenever
+# lesson source files change.
+#
+# Triggers on any push to main that touches content/, apkg/, or build.py.
+# Runs python3 build.py, then commits and pushes the regenerated index.html
+# and lessons/*.html if anything changed.
+#
+# This file goes to .github/workflows/build.yml in the repo root.
+# It is NOT pre-committed in setup/ — copy or `mv` it into place tomorrow.
+
+name: Build site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'apkg/**'
+      - 'build.py'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Don't loop on our own auto-rebuild commits.
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Need a token that can push back to the repo.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Build
+        run: python3 build.py
+
+      - name: Commit regenerated HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html lessons/
+          if git diff --staged --quiet; then
+            echo "No HTML changes to commit"
+          else
+            git commit -m "Auto-rebuild after content change [skip ci]"
+            git push
+          fi
