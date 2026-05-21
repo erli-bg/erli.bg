@@ -1,0 +1,25 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node, just in case a static site generator is layered on later
+node_modules/
+
+# Python build artefacts
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Audio policy:
+# .mp3 files in audio/ are committed only when small.
+# Files larger than 5 MB should be stored elsewhere
+# (for example an unlisted Vimeo upload or a dedicated audio bucket)
+# and linked from the lesson tables rather than committed to the repo.
