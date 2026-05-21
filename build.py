@@ -19,6 +19,25 @@ PLACEHOLDER_COMMENT = (
     "data from Kostov reference and field recordings -->"
 )
 
+LESSON_STYLE = (
+    "<style>body{max-width:40em;margin:1em}"
+    ".video-wrapper{position:relative;width:100%;max-width:800px;"
+    "margin:1.5em auto;aspect-ratio:16/9}"
+    ".video-wrapper iframe{position:absolute;inset:0;width:100%;"
+    "height:100%;border:0}"
+    "@media (max-width:480px){.video-wrapper{margin:1em 0}}"
+    "</style>"
+)
+
+INDEX_STYLE = (
+    "<style>body{max-width:40em;margin:1em}"
+    "ul.lessons{list-style:none;padding-left:0}"
+    "ul.lessons li{display:flex;gap:1em;align-items:baseline}"
+    ".lesson-date{font-variant-numeric:tabular-nums;color:#777;"
+    "min-width:4.5em}"
+    "</style>"
+)
+
 
 def parse_frontmatter(text):
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n(.*)$", text, re.DOTALL)
@@ -94,7 +113,7 @@ def render_lesson(meta, sections):
         '<meta charset="utf-8">',
         f"<title>{full} - erli.bg</title>",
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
-        "<style>body{max-width:40em;margin:1em}.video-wrapper{position:relative;width:100%;max-width:800px;margin:1.5em auto;aspect-ratio:16/9}.video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0}@media (max-width:480px){.video-wrapper{margin:1em 0}}</style>",
+        LESSON_STYLE,
         "</head>",
         "<body>",
         '<p><a href="../index.html">back to index</a></p>',
@@ -145,7 +164,7 @@ def render_index(metas):
         '<meta charset="utf-8">',
         "<title>erli.bg</title>",
         '<meta name="viewport" content="width=device-width,initial-scale=1">',
-        "<style>body{max-width:40em;margin:1em}.video-wrapper{position:relative;width:100%;max-width:800px;margin:1.5em auto;aspect-ratio:16/9}.video-wrapper iframe{position:absolute;inset:0;width:100%;height:100%;border:0}@media (max-width:480px){.video-wrapper{margin:1em 0}}</style>",
+        INDEX_STYLE,
         "</head>",
         "<body>",
         "<h1>erli.bg</h1>",
@@ -156,13 +175,15 @@ def render_index(metas):
             "so it loads on any device including basic phones.</p>"
         ),
         "<h2>Lessons</h2>",
-        "<ul>",
+        '<ul class="lessons">',
     ]
     for m in metas:
         n = int(m["number"])
         nn = f"{n:02d}"
+        date = m.get("release_date", "")
         parts.append(
-            f'<li><a href="lessons/lesson-{nn}.html">'
+            f'<li><span class="lesson-date">{date}</span>'
+            f'<a href="lessons/lesson-{nn}.html">'
             f'Lesson {n}: {m["title"]}</a></li>'
         )
     parts += [

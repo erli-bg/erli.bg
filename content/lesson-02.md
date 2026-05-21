@@ -1,5 +1,6 @@
 ---
 number: 2
+release_date: 06/20
 title: At the doctor's office
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

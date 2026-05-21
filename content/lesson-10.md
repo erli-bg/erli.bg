@@ -1,5 +1,6 @@
 ---
 number: 10
+release_date: 10/10
 title: Telling stories
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

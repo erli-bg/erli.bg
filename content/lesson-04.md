@@ -1,5 +1,6 @@
 ---
 number: 4
+release_date: 07/18
 title: Numbers and time
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

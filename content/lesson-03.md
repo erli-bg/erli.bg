@@ -1,5 +1,6 @@
 ---
 number: 3
+release_date: 07/04
 title: Family
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

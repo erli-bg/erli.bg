@@ -1,5 +1,6 @@
 ---
 number: 8
+release_date: 09/12
 title: Children and school
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

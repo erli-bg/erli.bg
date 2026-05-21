@@ -1,5 +1,6 @@
 ---
 number: 5
+release_date: 08/01
 title: Food and the market
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

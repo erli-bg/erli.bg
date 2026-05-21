@@ -1,5 +1,6 @@
 ---
 number: 6
+release_date: 08/15
 title: Around the neighbourhood (Fakulteta)
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

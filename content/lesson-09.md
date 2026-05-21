@@ -1,5 +1,6 @@
 ---
 number: 9
+release_date: 09/26
 title: Holidays and rituals
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

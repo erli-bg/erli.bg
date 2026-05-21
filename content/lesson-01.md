@@ -1,5 +1,6 @@
 ---
 number: 1
+release_date: 06/06
 title: Greetings
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)

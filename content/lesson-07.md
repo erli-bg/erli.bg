@@ -1,5 +1,6 @@
 ---
 number: 7
+release_date: 08/29
 title: Work and trades
 recorded_at: PLACEHOLDER (Fakulteta, Sofia)
 recorded_on: PLACEHOLDER (YYYY-MM-DD)
