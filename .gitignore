@@ -23,3 +23,10 @@ __pycache__/
 # Files larger than 5 MB should be stored elsewhere
 # (for example an unlisted Vimeo upload or a dedicated audio bucket)
 # and linked from the lesson tables rather than committed to the repo.
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
