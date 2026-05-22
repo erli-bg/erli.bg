@@ -1,0 +1,36 @@
+name = "erli-publish"
+main = "src/index.ts"
+compatibility_date = "2026-05-15"
+
+# Workers Free tier: 100k req/day, 1 MB compressed bundle, 10 ms CPU.
+# Expected load: < 50 publishes/year. Free tier is fine.
+
+# Routes are configured tomorrow once the worker is deployed and the
+# Cloudflare-assigned subdomain is known. Postmark calls the worker via
+# its workers.dev URL by default; you only need a custom route if you
+# want it on erli.bg/publish or similar. Leave empty for now.
+# routes = [
+#   { pattern = "publish.erli.bg/*", custom_domain = true },
+# ]
+
+# Logs go to wrangler tail. No persistent storage needed.
+
+# Non-secret env vars. Secrets (tokens) are set with `wrangler secret put`.
+[vars]
+GITHUB_REPO    = "erli-bg/erli.bg"
+GITHUB_BRANCH  = "main"
+SITE_BASE_URL  = "https://erli.bg"
+
+# The following are SECRETS — do NOT put them here. Set them with:
+#   wrangler secret put GITHUB_TOKEN
+#   wrangler secret put POSTMARK_SERVER_TOKEN
+#   wrangler secret put ALLOWED_SENDER_EMAIL
+#   wrangler secret put POSTMARK_FROM_EMAIL
+# (Each command opens an editor or prompts for the value once.)
+
+# WASM module for sql.js. Wrangler bundles this automatically when
+# imported from TS via the "rules" mechanism below.
+[[rules]]
+type = "CompiledWasm"
+globs = ["**/*.wasm"]
+fallthrough = true

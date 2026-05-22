@@ -1,0 +1,23 @@
+{
+  "name": "erli-publish",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker that publishes erli.bg lessons from incoming Postmark email with .apkg attachments.",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250515.0",
+    "typescript": "^5.4.0",
+    "wrangler": "^3.80.0"
+  },
+  "dependencies": {
+    "fflate": "^0.8.2",
+    "sql.js": "^1.10.3"
+  }
+}
