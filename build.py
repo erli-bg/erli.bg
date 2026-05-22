@@ -31,9 +31,8 @@ LESSON_STYLE = (
     "body{font-family:Times,\"Times New Roman\",serif;"
     "max-width:40em;margin:1em;line-height:1.45}"
     "table{border-collapse:collapse;margin:0.7em 0}"
-    "th,td{border:1px solid #ccc;padding:0.3em 0.6em;"
-    "text-align:left;vertical-align:top}"
-    "th{background:#f4f4f4;font-weight:normal}"
+    "th,td{padding:0.3em 0.6em;text-align:left;vertical-align:top}"
+    "th{font-weight:bold}"
     ".video-wrapper{position:relative;width:100%;max-width:800px;"
     "margin:1.5em auto;aspect-ratio:16/9}"
     ".video-wrapper iframe{position:absolute;inset:0;width:100%;"
@@ -134,23 +133,10 @@ def render_lesson(meta, sections):
         '<p><a href="../index.html">back to index</a></p>',
         f"<h1>{full}</h1>",
         (
-            f'<p>Recorded at {meta.get("recorded_at", "PLACEHOLDER")}, '
-            f'on {meta.get("recorded_on", "PLACEHOLDER")}, with '
-            f'{meta.get("speakers", "PLACEHOLDER")}.</p>'
+            f'<div class="video-wrapper"><iframe src="https://player.vimeo.com/video/{vimeo}" '
+            f'allowfullscreen></iframe></div>'
         ),
     ]
-
-    desc = sections.get("Description", [])
-    for line in desc:
-        line = line.strip()
-        if line:
-            parts.append(f"<p>{line}</p>")
-
-    parts.append("<h2>Video</h2>")
-    parts.append(
-        f'<div class="video-wrapper"><iframe src="https://player.vimeo.com/video/{vimeo}" '
-        f'allowfullscreen></iframe></div>'
-    )
 
     if "Vocabulary" in sections:
         header, data = parse_table(sections["Vocabulary"])
