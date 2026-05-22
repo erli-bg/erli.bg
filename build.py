@@ -29,7 +29,7 @@ PLACEHOLDER_COMMENT = (
 LESSON_STYLE = (
     "<style>"
     "body{font-family:Times,\"Times New Roman\",serif;"
-    "max-width:40em;margin:1em;line-height:1.45}"
+    "max-width:40em;margin:1em auto;line-height:1.45}"
     "table{border-collapse:collapse;margin:0.7em 0}"
     "th,td{padding:0.3em 0.6em;text-align:left;vertical-align:top}"
     "th{font-weight:bold}"
@@ -44,7 +44,7 @@ LESSON_STYLE = (
 INDEX_STYLE = (
     "<style>"
     "body{font-family:Times,\"Times New Roman\",serif;"
-    "max-width:40em;margin:1em;line-height:1.45}"
+    "max-width:40em;margin:1em auto;line-height:1.45}"
     "ul.lessons{list-style:none;padding-left:0}"
     "ul.lessons li{display:flex;gap:1em;align-items:baseline}"
     ".lesson-date{font-variant-numeric:tabular-nums;"
