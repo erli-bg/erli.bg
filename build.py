@@ -130,7 +130,7 @@ def render_lesson(meta, sections):
         LESSON_STYLE,
         "</head>",
         "<body>",
-        '<p><a href="../index.html">back to index</a></p>',
+        '<p><a href="../">back to index</a></p>',
         f"<h1>{full}</h1>",
         (
             f'<div class="video-wrapper"><iframe src="https://player.vimeo.com/video/{vimeo}" '
